@@ -1,7 +1,7 @@
 import unittest, sys, os
 
-sys.path.append('../flask-example-3')
-from hello import app, db
+sys.path.append('week3_project')
+from main import app, db
 
 class UsersTests(unittest.TestCase):
 
