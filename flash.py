@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, flash, redirect
 from forms import RegistrationForm
+from login_check import LoginForm
 from flask_behind_proxy import FlaskBehindProxy
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -23,9 +24,12 @@ class User(db.Model):
 
 
 @app.route("/")                          # this tells you the URL the method below is related to
-def hello_world():
-    return render_template('home.html', subtitle = 'Home Page', txt = 'This is the home page')        # this prints HTML to the webpage
+def home_page():
+    return render_template('home.html', subtitle = 'Home Page', text = 'This is the home page')        # this prints HTML to the webpage
   
+@app.route("/about")
+def about_page():
+    return render_template('about.html', subtitle='About Page', text='This is the about page')
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -36,8 +40,20 @@ def register():
             db.session.add(user)
             db.session.commit()
             flash(f'Account created for {form.username.data}!', 'success')
-            return redirect(url_for('home')) # if so - send to home page
+            return redirect(url_for('/home')) # if so - send to home page
     return render_template('register.html', title='Register', form=form)
+
+@app.route("/login", methods = ['GET'])
+def login_page():
+    log = LoginForm()
+    if log.validate_on_submit(): # checks if entries are valid
+        if log.validate_on_submit():
+            user = User(username=log.username.data, email=log.email.data, password=log.password.data)
+            db.session.add(user)
+            db.session.commit()
+            flash(f'Account created for {log.username.data}!', 'success')
+            return redirect(url_for('/home')) # if so - send to home page
+    return render_template('login.html', subtitle='Login Page', form = log)
 
 def check_password_hash(pw_hash, password):
     salt = bcrypt.gensalt()
