@@ -9,6 +9,7 @@ proxied = FlaskBehindProxy(app)
 bcrypt = Bcrypt(app)
 app.config['SECRET_KEY'] = 'cf8b797bab3e5b3a5ed1f6d02ab32de0'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class User(db.Model):
