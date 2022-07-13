@@ -1,7 +1,7 @@
 import unittest, sys, os
 
-sys.path.append('week3_project')
-from main import app, db
+sys.path.append('../week3_project')
+from flash import app, db
 
 class UsersTests(unittest.TestCase):
 
