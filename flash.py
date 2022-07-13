@@ -2,9 +2,11 @@ from flask import Flask, render_template, url_for, flash, redirect
 from forms import RegistrationForm
 from flask_behind_proxy import FlaskBehindProxy
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcyrpt import Bcrypt
 
 app = Flask(__name__)                    # this gets the name of the file so Flask knows it's name
 proxied = FlaskBehindProxy(app)
+bcrypt = Bcrypt(app)
 app.config['SECRET_KEY'] = 'cf8b797bab3e5b3a5ed1f6d02ab32de0'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
@@ -16,7 +18,7 @@ class User(db.Model):
   password = db.Column(db.String(60), nullable=False)
 
   def __repr__(self):
-    return f"User('{self.username}', '{self.email}')"
+    return f"User('{self.username}', '{self.email}', {self.password})"
 
 
 @app.route("/")                          # this tells you the URL the method below is related to
@@ -36,6 +38,10 @@ def register():
             return redirect(url_for('home')) # if so - send to home page
     return render_template('register.html', title='Register', form=form)
 
+def check_password_hash(pw_hash, password):
+    salt = bcrypt.gensalt()
+    pw_hash = bcrypt.generate_password_hash(User.password, salt)
+    bcrypt.check_password_hash(pw_hash, User.password)
 
 if __name__ == '__main__':               # this should always be at the end
     app.run(debug=True, host="0.0.0.0")
