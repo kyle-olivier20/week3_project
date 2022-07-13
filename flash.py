@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, flash, redirect
 from forms import RegistrationForm
 from flask_behind_proxy import FlaskBehindProxy
 from flask_sqlalchemy import SQLAlchemy
-from flask_bcyrpt import Bcrypt
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)                    # this gets the name of the file so Flask knows it's name
 proxied = FlaskBehindProxy(app)
