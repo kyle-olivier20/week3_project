@@ -26,7 +26,7 @@ class User(db.Model):
 
 @app.route("/")
 def home_page():
-    return render_template('home.html', subtitle='Home Page', text='This is the home page')
+    return render_template('home.html', subtitle='Home Page', text='Home page')
 
 
 @app.route("/about")
@@ -46,6 +46,7 @@ def register():
             return redirect(url_for('/home'))  # if so - send to home page
     return render_template('register.html', title='Register', form=form)
 
+
 @app.route("/login", methods=['GET'])
 def login_page():
     log = LoginForm()
@@ -55,8 +56,8 @@ def login_page():
             db.session.add(user)
             db.session.commit()
             flash(f'Account created for {log.username.data}!', 'success')
-            return redirect(url_for('/home')) # if so - send to home page
-    return render_template('login.html', subtitle='Login Page', form = log)
+            return redirect(url_for('/home'))  # if so - send to home page
+    return render_template('login.html', subtitle='Login Page', form=log)
 
 def check_password_hash(pw_hash, password):
     salt = bcrypt.gensalt()
