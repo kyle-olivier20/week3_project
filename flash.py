@@ -24,9 +24,10 @@ class User(db.Model):
         return f"User('{self.username}', '{self.email}', {self.password})"
 
 
-@app.route("/")                          # this tells you the URL the method below is related to
+@app.route("/")
 def home_page():
     return render_template('home.html', subtitle='Home Page', text='This is the home page')        # this prints HTML to the webpage
+
 
 @app.route("/about")
 def about_page():
@@ -41,10 +42,10 @@ def register():
             db.session.add(user)
             db.session.commit()
             flash(f'Account created for {form.username.data}!', 'success')
-            return redirect(url_for('/home')) # if so - send to home page
+            return redirect(url_for('/home'))  # if so - send to home page
     return render_template('register.html', title='Register', form=form)
 
-@app.route("/login", methods = ['GET'])
+@app.route("/login", methods=['GET'])
 def login_page():
     log = LoginForm()
     if log.validate_on_submit(): # checks if entries are valid
@@ -64,4 +65,3 @@ def check_password_hash(pw_hash, password):
 
 if __name__ == '__main__':               # this should always be at the end
     app.run(debug=True, host="0.0.0.0")
-
