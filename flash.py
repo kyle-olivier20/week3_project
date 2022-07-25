@@ -20,8 +20,8 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
 
-  def __repr__(self):
-    return f"User('{self.username}', '{self.email}', {self.password})"
+    def __repr__(self):
+        return f"User('{self.username}', '{self.email}', {self.password})"
 
 
 @app.route("/")                          # this tells you the URL the method below is related to
