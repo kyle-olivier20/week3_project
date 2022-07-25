@@ -31,7 +31,7 @@ def home_page():
 
 @app.route("/about")
 def about_page():
-    return render_template('about.html', subtitle='About Page', text='This is the about page')
+    return render_template('about.html', subtitle='About Page', text='About page')
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -58,6 +58,7 @@ def login_page():
             flash(f'Account created for {log.username.data}!', 'success')
             return redirect(url_for('/home'))  # if so - send to home page
     return render_template('login.html', subtitle='Login Page', form=log)
+
 
 def check_password_hash(pw_hash, password):
     salt = bcrypt.gensalt()
