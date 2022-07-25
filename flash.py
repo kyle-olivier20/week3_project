@@ -26,12 +26,13 @@ class User(db.Model):
 
 @app.route("/")
 def home_page():
-    return render_template('home.html', subtitle='Home Page', text='This is the home page')        # this prints HTML to the webpage
+    return render_template('home.html', subtitle='Home Page', text='This is the home page')
 
 
 @app.route("/about")
 def about_page():
     return render_template('about.html', subtitle='About Page', text='This is the about page')
+
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -48,7 +49,7 @@ def register():
 @app.route("/login", methods=['GET'])
 def login_page():
     log = LoginForm()
-    if log.validate_on_submit(): # checks if entries are valid
+    if log.validate_on_submit():  # checks if entries are valid
         if log.validate_on_submit():
             user = User(username=log.username.data, email=log.email.data, password=log.password.data)
             db.session.add(user)
