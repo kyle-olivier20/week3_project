@@ -34,4 +34,4 @@ jobs:
         
       - name: Test with pytest  # This is new!
         run: |
-          python3 -m unittest test_basic.py
+          python3 -m unittest test_users.py
