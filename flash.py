@@ -26,12 +26,12 @@ class User(db.Model):
 
 @app.route("/")
 def home_page():
-    return render_template('home.html', subtitle='Home Page', text='Home page')
+    return render_template('home.html', subtitle='Home Page', text='Home')
 
 
 @app.route("/about")
 def about_page():
-    return render_template('about.html', subtitle='About Page', text='About page')
+    return render_template('about.html', subtitle='About Page', text='About')
 
 
 @app.route("/register", methods=['GET', 'POST'])
