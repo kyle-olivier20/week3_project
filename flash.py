@@ -39,7 +39,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():  # checks if entries are valid
         if form.validate_on_submit():
-            user = User(username=form.username.data, \
+            user = User(username=form.username.data,
                         email=form.email.data, password=form.password.data)
             db.session.add(user)
             db.session.commit()
@@ -53,7 +53,7 @@ def login_page():
     log = LoginForm()
     if log.validate_on_submit():  # checks if entries are valid
         if log.validate_on_submit():
-            user = User(username=log.username.data, \
+            user = User(username=log.username.data,
                         email=log.email.data, password=log.password.data)
             db.session.add(user)
             db.session.commit()
